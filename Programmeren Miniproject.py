@@ -39,24 +39,29 @@ def infoPubliek():
         return stallingBezet
 
 def plekVrij():
+    print('Deze kluizen zijn in gebruik:', infoPubliek())
+    print('Kies een kluis van 1 t/m 99 die niet bezet is.')
     invoer = input('Welk kluisnummer wilt u? ')
-    if invoer in infoPubliek():
-        print('Deze stallingsplaats is al in gebruik.')
-    else:
-        wachtwoordStallingsplaats = input('Voer een wachtwoord in voor uw stallingsplaats: ')
-        while ',' in wachtwoordStallingsplaats:
-            print('Uw wachtwoord mag geen komma bevatten.')
-            wachtwoordStallingsplaats = input('Voer een wachtwoord in voor uw stallingsplaats: ')
-
+    while True:
+        if invoer in infoPubliek():
+            print('Deze stallingsplaats is al in gebruik.')
+            invoer = input('Welk kluisnummer wilt u? ')
+        elif len(invoer) > 2:
+            print('Het laatste stallingsnummer is 99.')
+            invoer = input('Welk kluisnummer wilt u? ')
         else:
+            wachtwoordStallingsplaats = input('Voer een wachtwoord in voor uw stallingsplaats: ')
+            while ',' in wachtwoordStallingsplaats:
+                print('Uw wachtwoord mag geen komma bevatten.')
+                wachtwoordStallingsplaats = input('Voer een wachtwoord in voor uw stallingsplaats: ')
+
             wachtwoord = omzettenASCII(wachtwoordStallingsplaats)
             vandaag = datetime.datetime.today()
             s = vandaag.strftime("%d-%b-%Y, %I:%M:%S")
             datum = omzettenASCII(s)
-            return wachtwoord, datum
+            invoer = omzettenASCII(invoer)
+            return invoer, wachtwoord, datum
 
-
-print('Deze kluizen zijn in gebruik:', infoPubliek())
-print('Kies een kluis van 1 t/m 99 die niet bezet is.')
-
-print(plekVrij())
+with open('stalling.csv', 'a') as myCSVFile:
+    schrijven = csv.writer(myCSVFile)
+    schrijven.writerow(plekVrij())
