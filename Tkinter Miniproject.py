@@ -152,39 +152,30 @@ def stallen():
         schrijven.writerow(plekVrij(invoerRegistratienummer.get(), invoerNieuwStallingNummer.get(), invoerStallenWachtwoord.get()))
 
 def registreren(invoerNaam, invoerANaam, invoerGeboorteDatum, invoerFietsMerk):
-    if '' in invoerNaam:
-        return 'fout'
-    elif '' in invoerANaam:
-        return 'fout'
-    elif '' in invoerGeboorteDatum:
-        return 'fout'
-    elif '' in invoerFietsMerk:
-        return 'fout'
-    else:
-        Nummer = range(10000000, 100000000)
-        RandomGetal = random.choice(Nummer)
-        while True:
-            fileOpen = open("registreren.csv", "r")
-            fileOpen.readlines()
-            if RandomGetal in fileOpen:
-                Nummer = range(10000000, 100000000)
-                RandomGetal = random.choice(Nummer)
-            else:
-                omgezetteGetal = omzettenASCII(str(RandomGetal))
-                fileOpen.close()
-                break
-        voornaam = omzettenASCII(invoerNaam)
-        achternaam = omzettenASCII(invoerANaam)
-        geboortedatum = omzettenASCII(invoerGeboorteDatum)
-        fietsenmerk = omzettenASCII(invoerFietsMerk)
-        omgezetteGetal = omzettenASCII(str(RandomGetal))
-        with open("registreren.csv", "a+") as MyCSVfile:
-            MyCSVfile.write(voornaam)
-            MyCSVfile.write("," + achternaam)
-            MyCSVfile.write("," + geboortedatum)
-            MyCSVfile.write("," + fietsenmerk)
-            MyCSVfile.write("," + str(omgezetteGetal) + "\n")
-        return RandomGetal
+    Nummer = range(10000000, 100000000)
+    RandomGetal = random.choice(Nummer)
+    while True:
+        fileOpen = open("registreren.csv", "r")
+        fileOpen.readlines()
+        if RandomGetal in fileOpen:
+            Nummer = range(10000000, 100000000)
+            RandomGetal = random.choice(Nummer)
+        else:
+            omgezetteGetal = omzettenASCII(str(RandomGetal))
+            fileOpen.close()
+            break
+    voornaam = omzettenASCII(invoerNaam)
+    achternaam = omzettenASCII(invoerANaam)
+    geboortedatum = omzettenASCII(invoerGeboorteDatum)
+    fietsenmerk = omzettenASCII(invoerFietsMerk)
+    omgezetteGetal = omzettenASCII(str(RandomGetal))
+    with open("registreren.csv", "a+") as MyCSVfile:
+        MyCSVfile.write(voornaam)
+        MyCSVfile.write("," + achternaam)
+        MyCSVfile.write("," + geboortedatum)
+        MyCSVfile.write("," + fietsenmerk)
+        MyCSVfile.write("," + str(omgezetteGetal) + "\n")
+    return RandomGetal
 
 
 def tijd():
@@ -272,7 +263,7 @@ def toonInformatiePersoonlijkOutput():
 def toonStallenOutput():
     StallenFoutFrame.pack_forget()
     StallenFrame.pack_forget()
-    if plekVrij(invoerRegistratienummer.get(), invoerNieuwStallingNummer.get(), invoerStallenWachtwoord.get()) == 'fout':
+    if invoerRegistratienummer.get() == '' or invoerNieuwStallingNummer.get() == '' or invoerStallenWachtwoord.get() == '':
         StallenFoutFrame.pack()
     else:
         stallen()
@@ -280,7 +271,7 @@ def toonStallenOutput():
 
 def toonRegistrerenOutput():
     RegistrerenFoutFrame.pack_forget()
-    if registreren(invoerNaam.get(), invoerANaam.get(), invoerGeboorteDatum.get(), invoerFietsMerk.get()) == 'fout':
+    if invoerNaam.get() == '' or invoerANaam.get() == '' or invoerGeboorteDatum.get() == '' or invoerFietsMerk.get() == '':
         RegistrerenFrame.pack_forget()
         RegistrerenFoutFrame.pack()
     else:
