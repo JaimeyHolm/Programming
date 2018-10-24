@@ -9,12 +9,8 @@ def inlezen_beginstation(stations):
 
 def inlezen_eindstation(stations, beginStation):
     eindStation = input('Wat is uw eindstation? ')
-    while eindStation not in stations:
+    while eindStation not in stations or stations.index(eindStation) <= stations.index(beginStation):
         print('Deze trein komt niet in ' + eindStation + '.\n')
-        eindStation = input('Wat is uw eindstation? ')
-
-    while stations.index(eindStation) < stations.index(beginStation):
-        print('Met deze trein komt u niet in ' + eindStation + '.\n')
         eindStation = input('Wat is uw eindstation? ')
 
     return eindStation
