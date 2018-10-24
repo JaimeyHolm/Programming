@@ -40,12 +40,14 @@ def kluis_openen(kluisnummer, code):
         tmp = tmp.split(';')
         if tmp[0] == kluisnummer:
             if tmp[1] == code:
+                infile.close()
                 return ('Uw kluis is open.')
             else:
+                infile.close()
                 return('Uw kluinummer en code komen niet overeen.')
-        else:
-            pass
+
     infile.close()
+    return ('Kluisnummer niet gevonden.')
 
 
 print('1: Ik wil weten hoeveel kluizen nog vrij zijn')
