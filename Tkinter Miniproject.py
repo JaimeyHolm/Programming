@@ -152,30 +152,39 @@ def stallen():
         schrijven.writerow(plekVrij(invoerRegistratienummer.get(), invoerNieuwStallingNummer.get(), invoerStallenWachtwoord.get()))
 
 def registreren(invoerNaam, invoerANaam, invoerGeboorteDatum, invoerFietsMerk):
-    Nummer = range(10000000, 100000000)
-    RandomGetal = random.choice(Nummer)
-    while True:
-        fileOpen = open("registreren.csv", "r")
-        fileOpen.readlines()
-        if RandomGetal in fileOpen:
-            Nummer = range(10000000, 100000000)
-            RandomGetal = random.choice(Nummer)
-        else:
-            omgezetteGetal = omzettenASCII(str(RandomGetal))
-            fileOpen.close()
-            break
-    voornaam = omzettenASCII(invoerNaam)
-    achternaam = omzettenASCII(invoerANaam)
-    geboortedatum = omzettenASCII(invoerGeboorteDatum)
-    fietsenmerk = omzettenASCII(invoerFietsMerk)
-    omgezetteGetal = omzettenASCII(str(RandomGetal))
-    with open("registreren.csv", "a+") as MyCSVfile:
-        MyCSVfile.write(voornaam)
-        MyCSVfile.write("," + achternaam)
-        MyCSVfile.write("," + geboortedatum)
-        MyCSVfile.write("," + fietsenmerk)
-        MyCSVfile.write("," + str(omgezetteGetal) + "\n")
-    return RandomGetal
+    if '' in invoerNaam:
+        return 'fout'
+    elif '' in invoerANaam:
+        return 'fout'
+    elif '' in invoerGeboorteDatum:
+        return 'fout'
+    elif '' in invoerFietsMerk:
+        return 'fout'
+    else:
+        Nummer = range(10000000, 100000000)
+        RandomGetal = random.choice(Nummer)
+        while True:
+            fileOpen = open("registreren.csv", "r")
+            fileOpen.readlines()
+            if RandomGetal in fileOpen:
+                Nummer = range(10000000, 100000000)
+                RandomGetal = random.choice(Nummer)
+            else:
+                omgezetteGetal = omzettenASCII(str(RandomGetal))
+                fileOpen.close()
+                break
+        voornaam = omzettenASCII(invoerNaam)
+        achternaam = omzettenASCII(invoerANaam)
+        geboortedatum = omzettenASCII(invoerGeboorteDatum)
+        fietsenmerk = omzettenASCII(invoerFietsMerk)
+        omgezetteGetal = omzettenASCII(str(RandomGetal))
+        with open("registreren.csv", "a+") as MyCSVfile:
+            MyCSVfile.write(voornaam)
+            MyCSVfile.write("," + achternaam)
+            MyCSVfile.write("," + geboortedatum)
+            MyCSVfile.write("," + fietsenmerk)
+            MyCSVfile.write("," + str(omgezetteGetal) + "\n")
+        return RandomGetal
 
 
 def tijd():
@@ -271,7 +280,7 @@ def toonStallenOutput():
 
 def toonRegistrerenOutput():
     RegistrerenFoutFrame.pack_forget()
-    if invoerNaam.get() == None or invoerANaam.get() == None or invoerGeboorteDatum.get() == None or invoerFietsMerk.get() == None:
+    if registreren(invoerNaam.get(), invoerANaam.get(), invoerGeboorteDatum.get(), invoerFietsMerk.get()) == 'fout':
         RegistrerenFrame.pack_forget()
         RegistrerenFoutFrame.pack()
     else:
@@ -375,7 +384,7 @@ StallenFrame.pack(fill="both", expand=True)
 StallenLabel = Label(master=StallenFrame, text='Stallen', background='yellow', foreground='blue', width=50, height=3, font=('Helvetica', 25, 'bold'))
 StallenLabel.pack(padx=20, pady=20)
 StallingenVrij, StallingNummers = infoPubliek()
-StallenLabelStallingenBezet = Label(master=StallenFrame, text='Stallingen {} zijn bezet!'.format(StallingNummers), background='yellow', foreground='blue', width=100, height=2, font=('Helvetica', 15, 'bold'))
+StallenLabelStallingenBezet = Label(master=StallenFrame, text='Stalling(en) {} zijn bezet!'.format(StallingNummers), background='yellow', foreground='blue', width=100, height=2, font=('Helvetica', 15, 'bold'))
 StallenLabelStallingenBezet.pack(padx=20, pady=20)
 NieuwStallingNummerLabel = Label(master=StallenFrame, text='Voer hieronder uw toekomstige stallingnummer in!', background='yellow', foreground='blue', width=100, height=2, font=('Helvetica', 15, 'bold'))
 NieuwStallingNummerLabel.pack()
@@ -407,7 +416,7 @@ StallenLabel.pack(padx=20, pady=20)
 StallenLabel = Label(master=StallenFoutFrame, text='Stallingnummer bezet / Registratienummer niet bekend / Wachtwoord voldoet niet aan de eisen.', background='yellow', foreground='red', width=100, height=1, font=('Helvetica', 15, 'bold'))
 StallenLabel.pack(padx=20, pady=20)
 StallingenVrij, StallingNummers = infoPubliek()
-StallenLabelStallingenBezet = Label(master=StallenFoutFrame, text='Stallingen {} zijn bezet!'.format(StallingNummers), background='yellow', foreground='blue', width=100, height=2, font=('Helvetica', 15, 'bold'))
+StallenLabelStallingenBezet = Label(master=StallenFoutFrame, text='Stalling(en) {} zijn bezet!'.format(StallingNummers), background='yellow', foreground='blue', width=100, height=2, font=('Helvetica', 15, 'bold'))
 StallenLabelStallingenBezet.pack(padx=20, pady=20)
 NieuwStallingNummerLabel = Label(master=StallenFoutFrame, text='Voer hieronder uw toekomstige stallingnummer in!', background='yellow', foreground='blue', width=100, height=2, font=('Helvetica', 15, 'bold'))
 NieuwStallingNummerLabel.pack()
@@ -486,7 +495,7 @@ InformatiePubliekFrame.pack
 aantalStallingenVrij, stallingenVrij = infoPubliek()
 InformatiePubliekLabel = Label(master=InformatiePubliekFrame, text='Informatie Publiek', background='yellow', foreground='blue', width=50, height=1, font=('Helvetica', 25, 'bold'))
 InformatiePubliekLabel.pack(padx=20, pady=20)
-InformatiePubliekLabel1 = Label(master=InformatiePubliekFrame, text='Er zijn in totaal {} stallingen vrij, stallingen {} zijn bezet!'.format(100 - aantalStallingenVrij, stallingenVrij), background='yellow', foreground='blue', width=100, height=10, font=('Helvetica', 15, 'bold'))
+InformatiePubliekLabel1 = Label(master=InformatiePubliekFrame, text='Er zijn in totaal {} stallingen vrij, stalling(en) {} is/zijn bezet!'.format(100 - aantalStallingenVrij, stallingenVrij), background='yellow', foreground='blue', width=100, height=10, font=('Helvetica', 15, 'bold'))
 InformatiePubliekLabel1.pack()
 InformatiePersoonlijk = Frame(master=root, background='yellow')
 InformatiePersoonlijk.pack
@@ -494,13 +503,15 @@ InformatiePersoonlijk.pack
 
 #Informatie Persoonlijk Output fout!
 InformatiePersoonlijkFoutFrame = Frame(master=root, background='yellow')
+InformatieFoutLabel = Label(master=InformatiePersoonlijkFoutFrame, text='Persoonlijke Informatie', background='yellow', foreground='blue', width=50, height=1, font=('Helvetica', 25, 'bold'))
+InformatieFoutLabel.pack(padx=50, pady=50)
 InformatieFoutLabel = Label(master=InformatiePersoonlijkFoutFrame, text='Wachtwoord en/of Stalling is verkeerd ingevoerd!', background='yellow', foreground='red', width=50, height=1, font=('Helvetica', 15, 'bold'))
 InformatieFoutLabel.pack(padx=50, pady=50)
-invoerStallingLabel = Label(master=InformatiePersoonlijkFoutFrame, text='Voer hieronder uw Stalling nummer in:', background='yellow', foreground='blue', width=50, height=1, font=('Helvetica', 15, 'bold'))
+invoerStallingLabel = Label(master=InformatiePersoonlijkFoutFrame, text='Voer hieronder uw stalling nummer in:', background='yellow', foreground='blue', width=50, height=1, font=('Helvetica', 15, 'bold'))
 invoerStallingLabel.pack(padx=10, pady=0)
 invoerStallingFout = Entry(master=InformatiePersoonlijkFoutFrame, background='blue')
 invoerStallingFout.pack(padx=20, pady=20)
-invoerWachtwoordLabel = Label(master=InformatiePersoonlijkFoutFrame, text='Voer hieronder uw Wachtwoord van uw stalling in:', background='yellow', foreground='blue', width=50, height=1, font=('Helvetica', 15, 'bold'))
+invoerWachtwoordLabel = Label(master=InformatiePersoonlijkFoutFrame, text='Voer hieronder uw wachtwoord van uw stalling in:', background='yellow', foreground='blue', width=50, height=1, font=('Helvetica', 15, 'bold'))
 invoerWachtwoordLabel.pack(padx=10, pady=0)
 invoerWachtwoordFout = Entry(master=InformatiePersoonlijkFoutFrame, background='blue')
 invoerWachtwoordFout.pack(padx=20, pady=20)
@@ -514,7 +525,7 @@ InformatiePersoonlijkOutputFrame = Frame(master=root, background='yellow')
 InformatieLabel = Label(master=InformatiePersoonlijkOutputFrame, text='Persoonlijke Informatie', background='yellow', foreground='blue', width=50, height=1, font=('Helvetica', 25, 'bold'))
 InformatieLabel.pack(padx=20, pady=20)
 InformatiePersoonlijkOutputLabel = Label(master=InformatiePersoonlijkOutputFrame, text='U kunt nu bij uw fiets!', background='yellow', foreground='blue', width=50, height=1, font=('Helvetica', 25, 'bold'))
-InformatiePersoonlijkOutputLabel.pack(padx=20, pady=20)
+InformatiePersoonlijkOutputLabel.pack(padx=20, pady=0)
 InformatiePersoonlijkOutputFrame.pack
 
 
