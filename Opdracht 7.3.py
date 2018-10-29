@@ -4,7 +4,6 @@ def aantalRegels():
     invoer.close()
     return len(telRegels)
 
-
 def grootsteGetal():
     invoer = open('opdracht 7.2.txt')
     getallenlijst = []
@@ -15,9 +14,11 @@ def grootsteGetal():
         invoer.readline()
         i += 1
     invoer.close()
-    return max(getallenlijst)
+    getal = max(getallenlijst)
+    index = getallenlijst.index(getal)+1
+    return getal, index
 
-
+x, y = grootsteGetal()
 print ('Deze file telt ', aantalRegels(), ' regels')
 
-print ('Het grootste kaartnummer is: ' + grootsteGetal() + ' en dat staat op lijn 4')
+print ('Het grootste kaartnummer is: ' + str(x) + ' en dat staat op lijn ' + str(y))
