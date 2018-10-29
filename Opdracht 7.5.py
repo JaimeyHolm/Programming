@@ -1,5 +1,3 @@
-zin = input('Typ een zin: ')
-
 def gemiddelde(zin):
     gesplit = zin.split(' ')
     lengteLijst = len(gesplit)
@@ -8,8 +6,8 @@ def gemiddelde(zin):
     while i < lengteLijst:
         aantal.append(len(gesplit[i]))
         i += 1
-    return len(aantal) / lengteLijst
+    return sum(aantal) / lengteLijst
 
-
+zin = input('Typ een zin: ')
 print(gemiddelde(zin))
 
