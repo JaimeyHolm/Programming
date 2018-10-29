@@ -1,7 +1,7 @@
-def som(getallen):
-    return getallen[0] + getallen[1]+ getallen[2]
+def som(getal1, getal2, getal3):
+    return getal1 + getal2 + getal3
 
-x = som ([1, 2, 3])
-
-print(x)
-
+getal1 = 2
+getal2 = 4
+getal3 = 14
+print(som(getal1, getal2, getal3))
