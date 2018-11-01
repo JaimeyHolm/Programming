@@ -120,6 +120,7 @@ def ophalen(invoerRegistratienummer, invoerWachtwoord):
 
 
 def plekVrij(invoerRegistratienummer, invoerNieuwStallingNummer, wachtwoordStallingsplaats):
+    aantalStallingen, stallingenVrij = infoPubliek()
     with open('registreren.csv', 'r', newline='') as myCSVFile:
         lezer = csv.DictReader(myCSVFile, delimiter=',')
         lijst = []
@@ -129,7 +130,7 @@ def plekVrij(invoerRegistratienummer, invoerNieuwStallingNummer, wachtwoordStall
             omgezet = terugomzettenASCII(regel['obdfpqo^qfbkrjjbo'])
             lijst.append(omgezet)
         if invoerRegistratienummer in lijst:
-                if invoerNieuwStallingNummer in infoPubliek():
+                if str(invoerNieuwStallingNummer) in stallingenVrij:
                     return 'fout'
                 elif len(invoerNieuwStallingNummer) > 2:
                     return 'fout'
@@ -147,6 +148,8 @@ def plekVrij(invoerRegistratienummer, invoerNieuwStallingNummer, wachtwoordStall
             return 'fout'
 
 def stallen():
+    if plekVrij(invoerRegistratienummer.get(), invoerNieuwStallingNummer.get(), invoerStallenWachtwoord.get()) == 'fout':
+        return 'fout'
     with open('stalling.csv', 'a', newline='') as myCSVFile:
         schrijven = csv.writer(myCSVFile)
         schrijven.writerow(plekVrij(invoerRegistratienummer.get(), invoerNieuwStallingNummer.get(), invoerStallenWachtwoord.get()))
