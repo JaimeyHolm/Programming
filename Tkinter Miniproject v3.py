@@ -194,7 +194,7 @@ def tijd():
         return('Goedemorgen')
     elif s >= 12 and s < 18:
         return('Goedemiddag')
-    elif s > 18:
+    else:
         return('Goedenavond')
 
 def tijdKlok():
@@ -299,7 +299,7 @@ def toonRegistrerenOutput():
 def toonOphalenOutput():
     OphalenFrame.pack_forget()
     OphalenFoutFrame.pack_forget()
-    if ophalen(invoerRegistratienummer.get(),invoerWachtwoord.get()) == 'fout':
+    if ophalen(OphalenRegistratienummer.get(), OphalenWachtwoord.get()) == 'fout':
         OphalenFoutFrame.pack()
     else:
         OphalenOutputFrame.pack()
@@ -415,6 +415,15 @@ StallenDoorgaan.pack(padx=20, pady=40)
 RegistrerenFoutFrame.pack(fill="both", expand=True)
 
 
+#OphalenFoutFrame
+OphalenFoutFrame = Frame(master=root, background='yellow')
+OphalenFoutFrame.pack(fill="both", expand=True)
+OphalenLabel = Label(master=OphalenFoutFrame, text='Ophalen', background='yellow', foreground='blue', width=50, height=1, font=('Helvetica', 25, 'bold'))
+OphalenLabel.pack(padx=20, pady=20)
+OphalenLabel = Label(master=OphalenFoutFrame, text='Er mogen geen velden leeg blijven.', background='yellow', foreground='red', width=50, height=1, font=('Helvetica', 15, 'bold'))
+OphalenLabel.pack(padx=20, pady=20)
+
+
 #Ophalen
 OphalenFrame = Frame(master=root, background='yellow')
 OphalenFrame.pack(fill="both", expand=True)
@@ -438,24 +447,6 @@ OphalenOutputLabel = Label(master=OphalenOutputFrame, text='Ophalen', background
 OphalenOutputLabel.pack(padx=20, pady=20)
 OphalenOutputLabel = Label(master=OphalenOutputFrame, text='U kunt uw fiets ophalen!', background='yellow', foreground='blue', width=50, height=1, font=('Helvetica', 25, 'bold'))
 OphalenOutputLabel.pack(padx=20, pady=20)
-
-#OphalenFoutFrame
-OphalenFoutFrame = Frame(master=root, background='yellow')
-OphalenFoutFrame.pack(fill="both", expand=True)
-OphalenLabel = Label(master=OphalenFoutFrame, text='Ophalen', background='yellow', foreground='blue', width=50, height=1, font=('Helvetica', 25, 'bold'))
-OphalenLabel.pack(padx=20, pady=20)
-OphalenLabel = Label(master=OphalenFoutFrame, text='Er mogen geen velden leeg blijven.', background='yellow', foreground='red', width=50, height=1, font=('Helvetica', 15, 'bold'))
-OphalenLabel.pack(padx=20, pady=20)
-OphalenRegistratienummerLabel = Label(master=OphalenFoutFrame, text='Voer hieronder uw registratienummer in!', background='yellow', foreground='blue', width=100, height=2, font=('Helvetica', 15, 'bold'))
-OphalenRegistratienummerLabel.pack()
-OphalenRegistratienummer = Entry(master=OphalenFoutFrame, background='blue')
-OphalenRegistratienummer.pack(padx=20, pady=20)
-OphalenWachtwoordLabel = Label(master=OphalenFoutFrame, text='Voer hieronder uw wachtwoord in!', background='yellow', foreground='blue', width=100, height=2, font=('Helvetica', 15, 'bold'))
-OphalenWachtwoordLabel.pack()
-OphalenWachtwoord = Entry(master=OphalenFoutFrame, background='blue')
-OphalenWachtwoord.pack(padx=20, pady=20)
-OphalenDoorgaan = Button(master=OphalenFoutFrame, text='Doorgaan', height='3', width='14', background='blue', foreground='white', command=toonOphalenOutput)
-OphalenDoorgaan.pack(padx=20, pady=20)
 
 
 #Informatie
@@ -483,19 +474,11 @@ InformatiePersoonlijk.pack
 
 #Informatie Persoonlijk Output fout!
 InformatiePersoonlijkFoutFrame = Frame(master=root, background='yellow')
+InformatieLabel = Label(master=InformatiePersoonlijkFoutFrame, text='Persoonlijke Informatie', background='yellow', foreground='blue', width=50, height=1, font=('Helvetica', 25, 'bold'))
+InformatieLabel.pack(padx=20, pady=20)
 InformatieFoutLabel = Label(master=InformatiePersoonlijkFoutFrame, text='Wachtwoord en/of Stalling is verkeerd ingevoerd!', background='yellow', foreground='red', width=50, height=1, font=('Helvetica', 15, 'bold'))
 InformatieFoutLabel.pack(padx=50, pady=50)
-invoerStallingLabel = Label(master=InformatiePersoonlijkFoutFrame, text='Voer hieronder uw Stalling nummer in:', background='yellow', foreground='blue', width=50, height=1, font=('Helvetica', 15, 'bold'))
-invoerStallingLabel.pack(padx=10, pady=0)
-invoerStallingFout = Entry(master=InformatiePersoonlijkFoutFrame, background='blue')
-invoerStallingFout.pack(padx=20, pady=20)
-invoerWachtwoordLabel = Label(master=InformatiePersoonlijkFoutFrame, text='Voer hieronder uw Wachtwoord van uw stalling in:', background='yellow', foreground='blue', width=50, height=1, font=('Helvetica', 15, 'bold'))
-invoerWachtwoordLabel.pack(padx=10, pady=0)
-invoerWachtwoordFout = Entry(master=InformatiePersoonlijkFoutFrame, background='blue')
-invoerWachtwoordFout.pack(padx=20, pady=20)
-InformatiePersoonlijkDoorgaan = Button(master=InformatiePersoonlijkFoutFrame, text='Doorgaan', height='3', width='14', background='blue', foreground='white', command=toonInformatiePersoonlijkOutput)
-InformatiePersoonlijkDoorgaan.pack(padx=20, pady=20)
-InformatiePersoonlijkFoutFrame.pack
+
 
 
 #Informatie Persoonlijk output
