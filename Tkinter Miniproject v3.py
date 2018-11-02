@@ -283,7 +283,7 @@ def toonRegistrerenOutput():
     if x == 'fout':
         print('fout')
         RegistrerenFoutFrame.pack()
-#        return
+        return
     else:
         registrerenOpschrijven(invoerNaam.get(), invoerANaam.get(), invoerGeboorteDatum.get(), invoerFietsMerk.get(), x)
         RegistrerenOutputFrame = Frame(master=root, background='yellow')
@@ -299,7 +299,7 @@ def toonRegistrerenOutput():
 def toonOphalenOutput():
     OphalenFrame.pack_forget()
     OphalenFoutFrame.pack_forget()
-    if OphalenRegistratienummer.get() == None or OphalenWachtwoord.get() == None:
+    if ophalen(invoerRegistratienummer.get(),invoerWachtwoord.get()) == 'fout':
         OphalenFoutFrame.pack()
     else:
         OphalenOutputFrame.pack()
@@ -331,25 +331,6 @@ RegistrerenLabel = Label(master=RegistrerenFoutFrame, text='Registreren', backgr
 RegistrerenLabel.pack(padx=20, pady=20)
 RegistrerenLabel = Label(master=RegistrerenFoutFrame, text='Er mogen geen velden leeg blijven.', background='yellow', foreground='red', width=50, height=1, font=('Helvetica', 15, 'bold'))
 RegistrerenLabel.pack(padx=20, pady=20)
-invoerNaamLabel = Label(master=RegistrerenFoutFrame, text='Voer hieronder uw naam in!', background='yellow', foreground='blue', width=100, height=2, font=('Helvetica', 15, 'bold'))
-invoerNaamLabel.pack(padx=20, pady=10)
-invoerNaam = Entry(master=RegistrerenFoutFrame, background='blue')
-invoerNaam.pack(padx=20, pady=20)
-invoerANaamLabel = Label(master=RegistrerenFoutFrame, text='Voer hieronder uw achternaam in!', background='yellow', foreground='blue', width=100, height=2, font=('Helvetica', 15, 'bold'))
-invoerANaamLabel.pack(padx=20, pady=10)
-invoerANaam = Entry(master=RegistrerenFoutFrame, background='blue')
-invoerANaam.pack(padx=20, pady=20)
-invoerGeboorteDatumLabel = Label(master=RegistrerenFoutFrame, text='Voer hieronder uw geboortedatum in!\n(dd-mm-jjjj)', background='yellow', foreground='blue', width=100, height=2, font=('Helvetica', 15, 'bold'))
-invoerGeboorteDatumLabel.pack(padx=20, pady=10)
-invoerGeboorteDatum = Entry(master=RegistrerenFoutFrame, background='blue')
-invoerGeboorteDatum.pack(padx=20, pady=20)
-invoerFietsmerkLabel = Label(master=RegistrerenFoutFrame, text='Voer hieronder het merk van uw fiets in!', background='yellow', foreground='blue', width=100, height=2, font=('Helvetica', 15, 'bold'))
-invoerFietsmerkLabel.pack(padx=20, pady=10)
-invoerFietsMerk = Entry(master=RegistrerenFoutFrame, background='blue')
-invoerFietsMerk.pack(padx=20, pady=10)
-RegistrerenDoorgaan = Button(master=RegistrerenFoutFrame, text='Doorgaan', height=3, width=14, font=('Helvetica', 10, 'bold'),background='blue',foreground='white', command=toonRegistrerenOutput)
-RegistrerenDoorgaan.pack(padx=20, pady=40)
-invoerFietsmerkLabel.pack()
 
 #Registreren
 RegistrerenFrame = Frame(master=root, background='yellow')
@@ -375,7 +356,6 @@ invoerFietsMerk.pack(padx=20, pady=10)
 RegistrerenDoorgaan = Button(master=RegistrerenFrame, text='Doorgaan', height=3, width=14, font=('Helvetica', 10, 'bold'),background='blue',foreground='white', command=toonRegistrerenOutput)
 RegistrerenDoorgaan.pack(padx=20, pady=40)
 invoerFietsmerkLabel.pack()
-
 
 
 #Stallen
